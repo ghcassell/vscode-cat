@@ -1,0 +1,201 @@
+{
+  "name": "pomocat",
+  "displayName": "PomoCat — Playful Cat Pomodoro Timer",
+  "description": "A pomodoro timer guarded by a black ragdoll cat with green-yellow eyes, a white bib and white paws.",
+  "version": "0.2.0",
+  "publisher": "pomocat",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "cat",
+    "focus",
+    "productivity"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pomocat",
+          "title": "PomoCat",
+          "icon": "media/paw.svg"
+        }
+      ]
+    },
+    "views": {
+      "pomocat": [
+        {
+          "id": "pomocat.timerView",
+          "name": "Pomodoro",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "pomocat.start",
+        "title": "PomoCat: Start / Resume Timer",
+        "icon": "$(play)"
+      },
+      {
+        "command": "pomocat.pause",
+        "title": "PomoCat: Pause Timer",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "pomocat.toggle",
+        "title": "PomoCat: Start or Pause Timer"
+      },
+      {
+        "command": "pomocat.reset",
+        "title": "PomoCat: Reset Current Session",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "pomocat.skip",
+        "title": "PomoCat: Skip to Next Session",
+        "icon": "$(debug-step-over)"
+      },
+      {
+        "command": "pomocat.pet",
+        "title": "PomoCat: Pet the Cat"
+      },
+      {
+        "command": "pomocat.focus",
+        "title": "PomoCat: Show the Cat"
+      },
+      {
+        "command": "pomocat.unleash",
+        "title": "PomoCat: Unleash the Cats (preview the alert)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "pomocat.start",
+          "when": "view == pomocat.timerView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pomocat.pause",
+          "when": "view == pomocat.timerView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pomocat.skip",
+          "when": "view == pomocat.timerView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "pomocat.reset",
+          "when": "view == pomocat.timerView",
+          "group": "navigation@4"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PomoCat",
+      "properties": {
+        "pomocat.workMinutes": {
+          "type": "number",
+          "default": 25,
+          "minimum": 1,
+          "maximum": 180,
+          "description": "Length of a focus session, in minutes."
+        },
+        "pomocat.shortBreakMinutes": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Length of a short break, in minutes."
+        },
+        "pomocat.longBreakMinutes": {
+          "type": "number",
+          "default": 15,
+          "minimum": 1,
+          "maximum": 120,
+          "description": "Length of a long break, in minutes."
+        },
+        "pomocat.sessionsBeforeLongBreak": {
+          "type": "number",
+          "default": 4,
+          "minimum": 1,
+          "maximum": 12,
+          "description": "How many focus sessions the cat counts before a long break."
+        },
+        "pomocat.autoStartBreaks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Start breaks automatically when a focus session ends."
+        },
+        "pomocat.autoStartWork": {
+          "type": "boolean",
+          "default": false,
+          "description": "Start the next focus session automatically when a break ends."
+        },
+        "pomocat.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the cat and the remaining time in the status bar."
+        },
+        "pomocat.catName": {
+          "type": "string",
+          "default": "Luci",
+          "description": "Your cat's name."
+        },
+        "pomocat.alertStyle": {
+          "type": "string",
+          "enum": [
+            "takeover",
+            "notification",
+            "both",
+            "none"
+          ],
+          "enumDescriptions": [
+            "Take over the editor with cats bouncing and clawing their way down it.",
+            "Show an ordinary VS Code notification.",
+            "Both the takeover and a notification.",
+            "Say nothing at all."
+          ],
+          "default": "takeover",
+          "description": "How the cat tells you a session ended."
+        },
+        "pomocat.alertCats": {
+          "type": "number",
+          "default": 6,
+          "minimum": 1,
+          "maximum": 24,
+          "description": "How many cats appear during the takeover (half cling to the screen, half bounce)."
+        },
+        "pomocat.snoozeMinutes": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Minutes added when you ask the cat for more time."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  }
+}

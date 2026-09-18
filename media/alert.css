@@ -1,0 +1,183 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--vscode-font-family);
+  color: var(--vscode-foreground);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(180, 224, 74, .13), transparent 62%),
+    var(--vscode-editor-background);
+  user-select: none;
+  cursor: default;
+}
+body.break-time {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(111, 208, 232, .14), transparent 62%),
+    var(--vscode-editor-background);
+}
+
+/* ---------- the cats ---------- */
+#scratches { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+#field { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+
+.kitty {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  transition: opacity .25s ease;
+}
+.kitty .cat { width: 100%; height: auto; display: block; overflow: visible; }
+.cat * { transform-box: fill-box; }
+.shut, .shadow { display: none; }
+
+/* the sidebar cat's idle life, carried over */
+.tail { transform-origin: 8% 92%; animation: swish 2.8s ease-in-out infinite; }
+@keyframes swish {
+  0%, 100% { transform: rotate(0deg); }
+  30%      { transform: rotate(-9deg); }
+  65%      { transform: rotate(11deg); }
+}
+.ear-l { transform-origin: 80% 100%; animation: twitch-l 5.3s ease-in-out infinite; }
+.ear-r { transform-origin: 20% 100%; animation: twitch-r 6.1s ease-in-out infinite; }
+@keyframes twitch-l {
+  0%, 88%, 100% { transform: rotate(0deg); }
+  92%           { transform: rotate(-11deg); }
+  96%           { transform: rotate(3deg); }
+}
+@keyframes twitch-r {
+  0%, 80%, 100% { transform: rotate(0deg); }
+  85%           { transform: rotate(10deg); }
+  90%           { transform: rotate(-3deg); }
+}
+.lid { transform-origin: 50% 50%; transform: scaleY(0); animation: blink 4.3s ease-in-out infinite; }
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(0); }
+  95%           { transform: scaleY(1); }
+}
+.pupil { transform-origin: 50% 50%; transition: transform .15s ease; }
+
+/* hoppers: sit on the floor, bounce up and down */
+.hopper { transform-origin: 50% 96%; }
+.hopper .paws, .hopper .ear { transition: transform .12s ease; }
+.hopper.airborne .paws  { transform: translateY(4px); }
+.hopper.airborne .ear-l { transform: rotate(-12deg); animation: none; }
+.hopper.airborne .ear-r { transform: rotate(12deg); animation: none; }
+.hopper.airborne .pupil { transform: scaleX(1.9); }
+
+.ground-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .28);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* clingers: claws in the screen, wide-eyed, sliding down */
+.clinger { transform-origin: 50% 0; }
+.clinger .pupil { transform: scaleX(2.2) scaleY(.95); }
+.clinger .tail { animation-duration: 1.1s; }
+.clinger .cat { transform-origin: 50% 0; transition: transform .12s ease; }
+.clinger.leaping .cat  { transform: scaleY(1.06); }
+.clinger.thunk .cat    { transform: scale(1.06, .92); }
+.clinger.slipping .cat { transform: rotate(1.5deg) translateY(2px); }
+.clinger.slipping .ear-l { transform: rotate(-14deg); animation: none; }
+.clinger.slipping .ear-r { transform: rotate(14deg); animation: none; }
+.clinger.letting-go .cat { transform: rotate(-8deg); }
+.clinger.letting-go .grip { transform: translateY(6px); transition: transform .1s ease; }
+
+.dust {
+
+  position: absolute;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--vscode-descriptionForeground);
+  opacity: .32;
+  pointer-events: none;
+  animation: puff .55s ease-out forwards;
+}
+@keyframes puff {
+  0%   { transform: scale(.5); opacity: .35; }
+  100% { transform: scale(2.1) translateY(-10px); opacity: 0; }
+}
+
+/* ---------- the message ---------- */
+.card {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  padding: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(30px, 6.2vw, 62px);
+  font-weight: 200;
+  letter-spacing: -1px;
+}
+h1 strong { font-weight: 600; color: #b4e04a; }
+body.break-time h1 strong { color: #6fd0e8; }
+
+.sub {
+  margin: 10px 0 4px;
+  font-size: clamp(14px, 1.9vw, 19px);
+  color: var(--vscode-descriptionForeground);
+  max-width: 34em;
+  line-height: 1.55;
+}
+
+.next {
+  margin: 0 0 26px;
+  font-size: 13px;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  color: var(--vscode-descriptionForeground);
+  opacity: .8;
+}
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+button {
+  padding: 11px 26px;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--vscode-button-secondaryForeground);
+  background: var(--vscode-button-secondaryBackground);
+}
+button:hover { background: var(--vscode-button-secondaryHoverBackground); }
+button.primary {
+  color: var(--vscode-button-foreground);
+  background: var(--vscode-button-background);
+  font-weight: 600;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+button.primary:hover { background: var(--vscode-button-hoverBackground); }
+@keyframes nudge {
+  0%, 82%, 100% { transform: scale(1); }
+  88%           { transform: scale(1.055); }
+}
+button:focus-visible { outline: 2px solid var(--vscode-focusBorder); outline-offset: 3px; }
+
+.hint {
+  margin-top: 22px;
+  font-size: 11.5px;
+  color: var(--vscode-descriptionForeground);
+  opacity: .65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat, .cat *, button.primary { animation: none !important; }
+}
