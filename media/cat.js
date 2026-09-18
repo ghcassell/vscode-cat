@@ -139,16 +139,16 @@ const CLING_ARMS = `
           stroke-width="19" stroke-linecap="round" />
     <g class="grip grip-l">
       <path d="M36 -14 l -1 -10 M41 -16 l 0 -9 M47 -16 l 0 -9 M52 -14 l 1 -10"
-            stroke="#eef1f6" stroke-width="2.4" stroke-linecap="round" fill="none" />
+            stroke="#6a6a6a" stroke-width="2.4" stroke-linecap="round" fill="none" />
       <ellipse cx="44" cy="-8" rx="13" ry="10" fill="url(#bibG)" />
-      <path d="M38 -11 v5 M44 -13 v6 M50 -11 v5" stroke="#c7ccd8" stroke-width="1.5"
+      <path d="M38 -11 v5 M44 -13 v6 M50 -11 v5" stroke="#6a6a6a" stroke-width="1.5"
             stroke-linecap="round" fill="none" />
     </g>
     <g class="grip grip-r">
       <path d="M148 -14 l -1 -10 M153 -16 l 0 -9 M159 -16 l 0 -9 M164 -14 l 1 -10"
-            stroke="#eef1f6" stroke-width="2.4" stroke-linecap="round" fill="none" />
+            stroke="#6a6a6a" stroke-width="2.4" stroke-linecap="round" fill="none" />
       <ellipse cx="156" cy="-8" rx="13" ry="10" fill="url(#bibG)" />
-      <path d="M150 -11 v5 M156 -13 v6 M162 -11 v5" stroke="#c7ccd8" stroke-width="1.5"
+      <path d="M150 -11 v5 M156 -13 v6 M162 -11 v5" stroke="#6a6a6a" stroke-width="1.5"
             stroke-linecap="round" fill="none" />
     </g>
   </g>`;
