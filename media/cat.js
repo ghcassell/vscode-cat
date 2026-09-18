@@ -46,9 +46,11 @@ function catMarkup(pose) {
                         C 130 186, 147 180, 148 167 C 151 130, 140 92, 100 92 Z"
         fill="url(#furG)" />
 
-  <!-- white bib -->
-  <path class="bib" d="M100 108 C 85 110, 79 132, 82 157 C 84 174, 92 179, 100 179
-                       C 108 179, 116 174, 118 157 C 121 132, 115 110, 100 108 Z"
+  <!-- white bib: full under the chin, tapering down the chest in ragged fur tufts -->
+  <path class="bib" d="M100 108 C 86 109, 77 117, 77 127
+                       L 83 131 L 79 137 L 86 140 L 83 146 L 90 148 L 88 154 L 95 155 L 100 163
+                       L 105 155 L 112 154 L 110 148 L 117 146 L 114 140 L 121 137 L 117 131 L 123 127
+                       C 123 117, 114 109, 100 108 Z"
         fill="url(#bibG)" />
 
   <!-- white front paws -->
