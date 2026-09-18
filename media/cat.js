@@ -111,6 +111,10 @@ function catMarkup(pose) {
       </g>
     </g>
 
+    <!-- a single curved eyebrow hair above the left eye -->
+    <path class="brow brow-l" d="M81 53 Q 68.5 37 55 41"
+          stroke="#f2f4f8" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".85" />
+
     <!-- muzzle -->
     <path class="nose" d="M100 96 l 6 5 l -6 5 l -6 -5 z" fill="#e79aa8" />
     <path class="mouth" d="M100 106 q -7 8 -13 1 M100 106 q 7 8 13 1"
