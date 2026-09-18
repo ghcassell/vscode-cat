@@ -52,10 +52,10 @@ body.break-time {
   85%           { transform: rotate(10deg); }
   90%           { transform: rotate(-3deg); }
 }
-.lid { transform-origin: 50% 50%; transform: scaleY(0); animation: blink 4.3s ease-in-out infinite; }
+.lid { transform: translateY(-100%); animation: blink 4.3s ease-in-out infinite; }
 @keyframes blink {
-  0%, 92%, 100% { transform: scaleY(0); }
-  95%           { transform: scaleY(1); }
+  0%, 92%, 100% { transform: translateY(-100%); }
+  95%           { transform: translateY(0); }
 }
 .pupil { transform-origin: 50% 50%; transition: transform .15s ease; }
 

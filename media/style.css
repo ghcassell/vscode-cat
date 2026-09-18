@@ -156,10 +156,9 @@ body {
     }
 }
 
-/* blinking: the lid drops over the eye */
+/* blinking: the lid slides down from above the eye (clipped to the eye) */
 .lid {
-    transform-origin: 50% 50%;
-    transform: scaleY(0);
+    transform: translateY(-100%);
     animation: blink 5.7s ease-in-out infinite;
 }
 .eye-r .lid {
@@ -169,10 +168,10 @@ body {
     0%,
     92%,
     100% {
-        transform: scaleY(0);
+        transform: translateY(-100%);
     }
     95% {
-        transform: scaleY(1);
+        transform: translateY(0);
     }
 }
 
@@ -209,7 +208,7 @@ body.phase-work.running .pupil {
 body.phase-work.running .tail {
     animation-duration: 1.6s;
 }
-body.phase-work.running .sclera {
+body.phase-work.running .eyeball {
     transform-origin: 50% 50%;
     transform: scaleY(0.82);
 }
@@ -225,16 +224,8 @@ body.phase-shortBreak .shut,
 body.phase-longBreak .shut {
     display: block;
 }
-body.phase-shortBreak .sclera,
-body.phase-shortBreak .pupil,
-body.phase-shortBreak .glint,
-body.phase-shortBreak .glint-sm,
-body.phase-shortBreak .lid,
-body.phase-longBreak .sclera,
-body.phase-longBreak .pupil,
-body.phase-longBreak .glint,
-body.phase-longBreak .glint-sm,
-body.phase-longBreak .lid {
+body.phase-shortBreak .eyeball,
+body.phase-longBreak .eyeball {
     display: none;
 }
 body.phase-shortBreak .cat,
@@ -341,7 +332,7 @@ body.petted .cat {
 }
 body.petted .lid {
     animation: none;
-    transform: scaleY(0.55);
+    transform: translateY(-45%);
 }
 
 .hearts {

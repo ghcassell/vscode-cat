@@ -26,6 +26,9 @@ function catMarkup(pose) {
       <stop offset="0%" stop-color="#ffffff" />
       <stop offset="100%" stop-color="#e2e6ef" />
     </linearGradient>
+    <!-- everything inside an eye is clipped to its sclera, so the lid and pupil never spill out -->
+    <clipPath id="eyeClipL"><ellipse cx="80" cy="76" rx="14.5" ry="15.5" /></clipPath>
+    <clipPath id="eyeClipR"><ellipse cx="120" cy="76" rx="14.5" ry="15.5" /></clipPath>
   </defs>
 
   ${cling ? "" : `<ellipse class="shadow" cx="100" cy="186" rx="60" ry="9" />`}
@@ -83,20 +86,26 @@ function catMarkup(pose) {
 
     <g class="eyes">
       <g class="eye eye-l">
-        <ellipse class="sclera" cx="80" cy="76" rx="14.5" ry="15.5" fill="url(#eyeG)" />
-        <ellipse class="pupil" cx="80" cy="76" rx="5.2" ry="12.5" fill="#101018" />
-        <circle class="glint" cx="75" cy="69" r="3.4" fill="#ffffff" opacity=".9" />
-        <circle class="glint-sm" cx="85" cy="83" r="1.7" fill="#ffffff" opacity=".55" />
-        <path class="lid" d="M65 76 a15 15 0 0 1 30 0 a15 15 0 0 1 -30 0 z" fill="#1c1b22" />
+        <g class="eyeball" clip-path="url(#eyeClipL)">
+          <ellipse class="sclera" cx="80" cy="76" rx="14.5" ry="15.5" fill="url(#eyeG)" />
+          <ellipse class="pupil" cx="80" cy="76" rx="5.2" ry="12.5" fill="#101018" />
+          <circle class="glint" cx="75" cy="69" r="3.4" fill="#ffffff" opacity=".9" />
+          <circle class="glint-sm" cx="85" cy="83" r="1.7" fill="#ffffff" opacity=".55" />
+          <!-- upper lid: sits above the eye and slides down over it -->
+          <path class="lid" d="M63 57 H97 V90 Q80 100 63 90 Z" fill="#1c1b22" />
+        </g>
         <path class="shut" d="M69 74 q 11 12 22 0" stroke="#e8ecf4" stroke-width="3"
               fill="none" stroke-linecap="round" />
       </g>
       <g class="eye eye-r">
-        <ellipse class="sclera" cx="120" cy="76" rx="14.5" ry="15.5" fill="url(#eyeG)" />
-        <ellipse class="pupil" cx="120" cy="76" rx="5.2" ry="12.5" fill="#101018" />
-        <circle class="glint" cx="115" cy="69" r="3.4" fill="#ffffff" opacity=".9" />
-        <circle class="glint-sm" cx="125" cy="83" r="1.7" fill="#ffffff" opacity=".55" />
-        <path class="lid" d="M105 76 a15 15 0 0 1 30 0 a15 15 0 0 1 -30 0 z" fill="#1c1b22" />
+        <g class="eyeball" clip-path="url(#eyeClipR)">
+          <ellipse class="sclera" cx="120" cy="76" rx="14.5" ry="15.5" fill="url(#eyeG)" />
+          <ellipse class="pupil" cx="120" cy="76" rx="5.2" ry="12.5" fill="#101018" />
+          <circle class="glint" cx="115" cy="69" r="3.4" fill="#ffffff" opacity=".9" />
+          <circle class="glint-sm" cx="125" cy="83" r="1.7" fill="#ffffff" opacity=".55" />
+          <!-- upper lid: sits above the eye and slides down over it -->
+          <path class="lid" d="M103 57 H137 V90 Q120 100 103 90 Z" fill="#1c1b22" />
+        </g>
         <path class="shut" d="M109 74 q 11 12 22 0" stroke="#e8ecf4" stroke-width="3"
               fill="none" stroke-linecap="round" />
       </g>
