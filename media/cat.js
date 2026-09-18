@@ -4,6 +4,39 @@
 // pose "sit"   — the sidebar cat, sitting on the floor.
 // pose "cling" — the same cat hanging off the screen by its front claws, with
 //                extra room above the head for the raised paws.
+
+// A filled path tracing a quadratic curve from `root` through control `ctrl` to
+// `tip`, `rootWidth` thick at the root and narrowing to `tipWidth` at the tip,
+// with round ends. Used for hairs (whiskers, brow) that thin out away from the head.
+function taperedHair(root, ctrl, tip, rootWidth, tipWidth, steps = 12) {
+  const left = [];
+  const right = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const s = 1 - t;
+    const x = s * s * root[0] + 2 * s * t * ctrl[0] + t * t * tip[0];
+    const y = s * s * root[1] + 2 * s * t * ctrl[1] + t * t * tip[1];
+    const dx = 2 * s * (ctrl[0] - root[0]) + 2 * t * (tip[0] - ctrl[0]);
+    const dy = 2 * s * (ctrl[1] - root[1]) + 2 * t * (tip[1] - ctrl[1]);
+    const len = Math.hypot(dx, dy) || 1;
+    const half = (rootWidth + (tipWidth - rootWidth) * t) / 2;
+    const nx = (-dy / len) * half;
+    const ny = (dx / len) * half;
+    left.push(`${(x + nx).toFixed(2)} ${(y + ny).toFixed(2)}`);
+    right.push(`${(x - nx).toFixed(2)} ${(y - ny).toFixed(2)}`);
+  }
+  const r0 = (rootWidth / 2).toFixed(2);
+  const r1 = (tipWidth / 2).toFixed(2);
+  return `M${left.join(" L")} A${r1} ${r1} 0 0 0 ${right[steps]}` +
+    ` L${right.slice(0, steps).reverse().join(" L")} A${r0} ${r0} 0 0 0 ${left[0]} Z`;
+}
+
+// A straight tapered hair: the control point sits halfway along.
+function taperedLine(root, tip, rootWidth, tipWidth) {
+  const mid = [(root[0] + tip[0]) / 2, (root[1] + tip[1]) / 2];
+  return taperedHair(root, mid, tip, rootWidth, tipWidth, 1);
+}
+
 function catMarkup(pose) {
   const cling = pose === "cling";
   const viewBox = cling ? "0 -30 200 222" : "0 0 200 200";
@@ -114,16 +147,20 @@ function catMarkup(pose) {
     </g>
 
     <!-- a single curved eyebrow hair above the left eye -->
-    <path class="brow brow-l" d="M81 53 Q 68.5 37 55 41"
-          stroke="#f2f4f8" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".85" />
+    <path class="brow brow-l" d="${taperedHair([81, 53], [68.5, 37], [55, 41], 1.8, 0.4)}"
+          fill="#f2f4f8" opacity=".85" />
 
     <!-- muzzle -->
     <path class="nose" d="M100 96 l 6 5 l -6 5 l -6 -5 z" fill="#e79aa8" />
     <path class="mouth" d="M100 106 q -7 8 -13 1 M100 106 q 7 8 13 1"
           stroke="#0f0e13" stroke-width="2.2" fill="none" stroke-linecap="round" />
     <g class="whiskers" opacity=".8">
-      <path d="M62 94 l -22 -6 M62 101 l -23 2 M138 94 l 22 -6 M138 101 l 23 2"
-            stroke="#f2f4f8" stroke-width="1.8" stroke-linecap="round" fill="none" />
+      <path d="${[
+        taperedLine([62, 94], [40, 88], 2, 0.4),
+        taperedLine([62, 101], [39, 103], 2, 0.4),
+        taperedLine([138, 94], [160, 88], 2, 0.4),
+        taperedLine([138, 101], [161, 103], 2, 0.4),
+      ].join(" ")}" fill="#f2f4f8" />
     </g>
   </g>
 </svg>`;
