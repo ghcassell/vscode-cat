@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1
 
 - The takeover now uses the sidebar cat instead of side-on runners: half the
   cats bounce up and down along the bottom, the rest leap onto the screen, dig

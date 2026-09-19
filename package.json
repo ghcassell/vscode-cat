@@ -2,7 +2,7 @@
   "name": "pomocat",
   "displayName": "PomoCat — Playful Cat Pomodoro Timer",
   "description": "A pomodoro timer guarded by a black ragdoll cat with green-yellow eyes, a white bib and white paws.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "pomocat",
   "license": "MIT",
   "engines": {
